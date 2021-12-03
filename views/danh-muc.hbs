@@ -1,0 +1,279 @@
+<div class="navbar navbar-inverse set-radius-zero">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/sanpham">
+        <img src="/img/logoPS.jpg" />
+      </a>
+    </div>
+    <div class="right-div">
+      <a href="/dangxuat" class="btn btn-info pull-right">LOG ME OUT</a>
+    </div>
+  </div>
+</div>
+<!-- LOGO HEADER END-->
+<section class="menu-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="navbar-collapse collapse">
+          <ul id="menu-top" class="nav navbar-nav navbar-right">
+            {{! <li><a href="index.html">LOGIN</a></li> }}
+
+            <!-- <li><a href="form.html">FORMS</a></li> -->
+            <!-- <li>
+                  <a
+                    href="#"
+                    class="dropdown-toggle"
+                    id="ddlmenuItem"
+                    data-toggle="dropdown"
+                    >UI ELEMENTS <i class="fa fa-angle-down"></i
+                  ></a>
+                  <ul
+                    class="dropdown-menu"
+                    role="menu"
+                    aria-labelledby="ddlmenuItem"
+                  >
+                    <li role="presentation">
+                      <a role="menuitem" tabindex="-1" href="ui.html"
+                        >UI ELEMENTS</a
+                      >
+                    </li>
+                    <li role="presentation">
+                      <a role="menuitem" tabindex="-1" href="#">EXAMPLE LINK</a>
+                    </li>
+                  </ul>
+                </li> -->
+            <!-- <li><a href="tab.html"> TABS & PANELS</a></li>
+                <li><a href="login.html">LOGIN</a></li> -->
+            <li>
+              <a href="/sanpham">Sản Phẩm</a>
+            </li>
+            {{! <li>
+              <a href="chi-tiet-san-pham.html">Sửa Sản Phẩm</a>
+            </li> }}
+            <li>
+              <a href="/danhmuc">Danh Mục</a>
+            </li>
+            {{! <li>
+              <a href="chi-tiet-danh-muc.html">Sửa Danh Mục</a>
+            </li> }}
+            <li>
+              <a href="/thongke">Thống Kê</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- MENU SECTION END-->
+<div class="content-wrapper">
+  <div class="container">
+    <div class="row pad-botm">
+      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Thêm Danh Mục Sản Phẩm
+      </button>
+
+      <div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true" style="display: none">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                  Modal Add Category
+                </h4>
+              </div>
+              <div class="panel-body">
+                <form role="form" method="post" action="/danhmuc">
+
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input id="name" onchange="validationForm()" class="form-control" type="text" name="name" />
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                      Close
+                    </button>
+                    <button id="btnSave" type="button" onclick="onSave()" class="btn btn-primary">
+                      Save changes
+                    </button>
+                    <h5 id="error-msg"></h5>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- Modal delete -->
+        <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true" style="display: none">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                  Bạn có chắc muốn xóa danh mục này!
+                </h4>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                  Close
+                </button>
+                <button type="submit" onclick="onDelete()" class="btn btn-primary">OK</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- End modal delete -->
+      </div>
+    </div>
+
+    <!-- /. ROW  -->
+
+    <!-- /. ROW  -->
+
+    <!-- /. ROW  -->
+    <div class="row">
+      <div class="col-md-6">
+        <!--    Hover Rows  -->
+        <div class="panel panel-default">
+          <div class="panel-heading">Bảng Danh Mục Sản Phẩm</div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>ACTIONS</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each categories}}
+                  <tr>
+                    <td>{{soThuTu @index}}</td>
+                    <td>{{this._id}}</td>
+                    <td>{{this.name}}</td>
+
+                    <td>
+                      {{!-- <a href="/sanpham/{{this.id}}/edit"> --}}
+                        <button class="btn btn-primary" onclick="goEdit('{{this._id}}')">
+                          <i class="fa fa-edit"></i>
+                          Edit
+                        </button>
+                        {{! </a> }}
+
+                      <button class="btn btn-danger" data-toggle="modal" data-target="#myModalDelete"
+                        onclick="goDelete('{{this._id}}')">
+                        <i class="fa fa-pencil"></i>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- End  Hover Rows  -->
+      </div>
+    </div>
+    <!-- /. ROW  -->
+  </div>
+</div>
+<!-- CONTENT-WRAPPER SECTION END-->
+<section class="footer-section">
+  <div class="container">
+    <div class="row">
+      {{!-- <div class="col-md-12">
+        &copy; 2014 Yourdomain.com |<a href="http://www.binarytheme.com/" target="_blank">
+          Designed by : binarytheme.com</a>
+      </div> --}}
+    </div>
+  </div>
+</section>
+<script>
+  let delete_id;
+  const goEdit = (id) => { window.location.href = `/danhmuc/${id}/edit` }
+  const goDelete = (id) => { delete_id = id }
+
+  const onDelete = async () => {
+    const url = `http://localhost:3000/danhmuc/${delete_id}`;
+    const option = {
+      method: 'delete',
+      headers: { "Content-Type": "application/json" }
+    }
+    try {
+      await
+        fetchAPI(url, option); window.location.href = "/danhmuc";
+    } catch (e) {
+      console.log("Delete Error: ", e);
+    }
+  }
+  const fetchAPI = async (url, option) => {
+    const res = await fetch(url, option);
+    return res.json().then();
+  }
+
+  const validationForm = () => {
+    const name = document.getElementById("name").value;
+
+    if (!name || name.trim().lenght === 0
+    ) {
+      document.getElementById("btnSave").disabled = true;
+    } else {
+      document.getElementById("btnSave").disabled = false;
+    }
+  }
+  const onSave = async () => {
+    const name = document.getElementById("name").value;
+
+    const body = {
+      name
+    }
+    const url = "http://localhost:3000/danhmuc";
+
+    const option = {
+      method: 'post',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    }
+    try {
+      const result = await fetchAPI(url, option);
+      if (result.status) {
+        window.location.href = "/danhmuc";
+      } else {
+
+        if (result.errors) {
+          const msg = result.errors[0].msg;
+          document.getElementById("error-msg").innerText = msg;
+        }
+        else {
+          console.log("is not error ");
+        }
+      }
+
+    } catch (e) {
+      console.log("Delete Error: ", e);
+    }
+  }
+</script>

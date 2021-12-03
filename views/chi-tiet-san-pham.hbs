@@ -1,0 +1,276 @@
+<div class="navbar navbar-inverse set-radius-zero">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/sanpham">
+        <img src="/img/logoPS.jpg" />
+      </a>
+    </div>
+
+    <div class="right-div">
+      <a href="/dangxuat" class="btn btn-info pull-right">LOG ME OUT</a>
+    </div>
+  </div>
+</div>
+<!-- LOGO HEADER END-->
+<section class="menu-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="navbar-collapse collapse">
+          <ul id="menu-top" class="nav navbar-nav navbar-right">
+            {{!-- <li><a href="/">LOGIN</a></li> --}}
+
+            <li>
+              <a href="/sanpham">Sản Phẩm</a>
+            </li>
+            {{!-- <li>
+              <a href="/sanpham/4/edit">Sửa Sản Phẩm</a>
+            </li> --}}
+            <li>
+              <a href="/danhmuc">Danh Mục</a>
+            </li>
+            {{!-- <li>
+              <a href="/chitietdanhmuc/4/edit">Sửa Danh Mục</a>
+            </li> --}}
+            <li><a href="/thongke">Thống Kê</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- MENU SECTION END-->
+<div class="content-wrapper">
+  <div class="container">
+    <div class="row pad-botm">
+      <div class="col-md-12">
+        <h4 class="header-line">FORM UPDATE</h4>
+      </div>
+    </div>
+
+    <div class="panel-formdetail">
+      <div class="panel panel-info">
+
+        <div class="panel-body">
+          <form role="form" enctype="multipart/form-data">
+            {{!-- <div class="form-group">
+              <label>ID</label>
+              <input class="form-control" type="text" />
+
+            </div> --}}
+            <input id="id" class="form-control" type="hidden" name='id' value="{{product._id}}" />
+
+            <div class="form-group">
+              <label>Name</label>
+              <input id="name" class="form-control" type="text" name='name' value="{{product.name}}" />
+
+            </div>
+            <div class="form-group">
+              <label>Price</label>
+              <input id="price" class="form-control" type="text" name="price" value="{{product.price}}" />
+
+            </div>
+            <div class="form-group">
+              <label>Quantity</label>
+              <input id="quantity" class="form-control" type="text" name="quantity" value="{{product.quantity}}" />
+
+            </div>
+            <div class="form-group">
+              <label class="control-lable" for="error">Category</label>
+              <select class="form-control" name="category" id="category">
+                {{#each categories}}
+                {{#if (compareCategories this._id ../product.category)}}
+                <option selected value="{{this._id}}">{{this.name}}</option>
+                {{else}}
+                <option value="{{this._id}}">{{this.name}}</option>
+                {{/if}}
+                {{/each}}
+              </select>
+            </div>
+
+            <div class="form-group has-error">
+              <label class="control-lable" for="error">Image</label>
+              <hr>
+              <img id="img-view" width="100" height="100" src="{{product.image}}" />
+              <input type="hidden" value="" name="image" id="image" />
+              <input type="file" class="border" id='img-file' onchange="onChangeFile()" />
+            </div>
+
+            <div class="form-group">
+              <label class="control-lable" for="description">Description</label>
+              <textarea type="text" rows="4" class="form-control" id="description" name="description">
+                      {{product.description}}
+                    </textarea>
+
+
+            </div>
+            <div class="form-group">
+              <label class="control-lable" for="description">Available</label>
+              {{#if product.available}}
+              <input type="checkbox" checked class="form-control-file border" id="available" name="available"
+                value="{{product.available}}"></input>
+              {{else}}
+              <input type="checkbox" class="form-control-file border" id="available" name="available"
+                value="{{product.available}}"></input>
+              {{/if}}
+            </div>
+
+            <div class="form-group">
+              <label class="control-lable" for="published">Published</label>
+              <input id="published" type="date" class="form-control" id="published" name="published"
+                value="{{formatDate product.published}}"></input>
+
+            </div>
+
+            <hr>
+            <div class="form-group modal-footer">
+              <button id="btnSave" type="button" class="btn btn-info" onclick="onSave()">
+                Save Changes
+              </button>
+              <button type="button" onclick="{onClose()}" class="btn btn-infocancel">
+                Close
+              </button>
+              <h5 id="error-msg"></h5>
+            </div>
+
+          </form>
+
+
+
+
+        </div>
+
+      </div>
+
+      <!--/.ROW-->
+
+    </div>
+  </div>
+  <!-- CONTENT-WRAPPER SECTION END-->
+  <section class="footer-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          {{!-- &copy; 2014 Yourdomain.com |<a href="http://www.binarytheme.com/" target="_blank">
+            Designed by : binarytheme.com</a> --}}
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    const onClose = () => {
+      window.location.href = "/sanpham"
+    }
+    const firebaseConfig = {
+      apiKey: "AIzaSyBNwWFKrZ_aHS-O2Q8OtjoEaCxbOIz3wr8",
+      authDomain: "myprojectreactnative-faff7.firebaseapp.com",
+      projectId: "myprojectreactnative-faff7",
+      storageBucket: "myprojectreactnative-faff7.appspot.com",
+      messagingSenderId: "562033096838",
+      appId: "1:562033096838:web:f0236981882d1b610f7907"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const onChangeFile = () => {
+      const file = document.getElementById('img-file').files[0];
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById('img-view').src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+
+      // upload
+      const ref = firebase.storage().ref(uuid());
+      const uploadTask = ref.put(file);
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => { },
+        (error) => { console.log("firebase error", error) },
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then(url => {
+
+            document.getElementById("image").value = url;
+
+          })
+        }
+      );
+
+
+    }
+    const uuid = () => {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+    const fetchAPI = async (url, option) => {
+      const res = await fetch(url, option);
+      return res.json().then();
+    }
+    const validationForm = () => {
+      const name = document.getElementById("name").value;
+      const price = document.getElementById("price").value;
+      const published = document.getElementById("published").value;
+      const quantity = document.getElementById("quantity").value;
+      const image = document.getElementById("image").value;
+
+      if (!name || !price || !published || !quantity || !image
+        || name.trim().lenght === 0
+        || price.trim().lenght === 0
+        || quantity.trim().lenght === 0
+        || new Date(published).getTime() > new Date().getTime()) {
+        document.getElementById("btnSave").disabled = true;
+
+      } else {
+        document.getElementById("btnSave").disabled = false;
+
+      }
+    }
+    const onSave = async () => {
+      const id = document.getElementById("id").value;
+      const name = document.getElementById("name").value;
+      const price = document.getElementById("price").value;
+      const published = document.getElementById("published").value;
+      const quantity = document.getElementById("quantity").value;
+      const category = document.getElementById("category").value;
+      const available = document.getElementById("available").value;
+      const image = document.getElementById('image').value;
+      const description = document.getElementById("description").value;;
+
+      const body = {
+        name, price, published, quantity, description, available, category, image
+      }
+      const url = `http://localhost:3000/sanpham/${id}/edit`;
+
+      const option = {
+        method: 'post',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      }
+      try {
+        const result = await fetchAPI(url, option);
+        console.log(result)
+        if (result.status) {
+          window.location.href = "/sanpham";
+
+        } else {
+          console.log("result.status false")
+          if (result.errors) {
+            const msg = result.errors[0].msg;
+            document.getElementById("error-msg").innerText = msg;
+          }
+          else {
+            console.log("is not error ");
+          }
+        }
+
+      } catch (e) {
+        console.log("Delete Error: ", e);
+      }
+    }
+  </script>

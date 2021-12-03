@@ -1,0 +1,161 @@
+<div class="navbar navbar-inverse set-radius-zero">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/sanpham">
+        <img src="/img/logoPS.jpg" />
+      </a>
+    </div>
+
+    <div class="right-div">
+      <a href="/dangxuat" class="btn btn-info pull-right">LOG ME OUT</a>
+    </div>
+  </div>
+</div>
+<!-- LOGO HEADER END-->
+<section class="menu-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="navbar-collapse collapse">
+          <ul id="menu-top" class="nav navbar-nav navbar-right">
+            {{!-- <li><a href="index.html">LOGIN</a></li> --}}
+
+
+            <li>
+              <a href="/sanpham">Sản Phẩm</a>
+            </li>
+            {{!-- <li>
+              <a href="chi-tiet-san-pham.html">Sửa Sản Phẩm</a>
+            </li> --}}
+            <li>
+              <a href="/danhmuc">Danh Mục</a>
+            </li>
+            {{!-- <li>
+              <a href="chi-tiet-danh-muc.html">Sửa Danh Mục</a>
+            </li> --}}
+            <li><a href="/thongke">Thống Kê</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- MENU SECTION END-->
+<div class="content-wrapper">
+  <div class="container">
+    <div class="row pad-botm">
+      <div class="col-md-12">
+        <h4 class="header-line">FORM UPDATE Danh Mục</h4>
+      </div>
+    </div>
+
+    <div class="panel-formdetail">
+      <div class="panel panel-info">
+
+        <div class="panel-body">
+          <form role="form">
+            {{!-- <div class="form-group">
+              <label>ID</label>
+              <input class="form-control" type="text" />
+
+            </div> --}}
+            <input id="id" class="form-control" type="hidden" name='id' value="{{category._id}}" />
+            <div class="form-group">
+              <label>Name</label>
+              <input id="name" onchange="{validationForm()}" class="form-control" type="text" name="name"
+                value="{{category.name}}" />
+
+            </div>
+
+            <div class="form-group">
+
+            </div>
+            <div class="form-group modal-footer">
+              <button id="btnSave" disabled type="button" onclick="{onSave()}" class="btn btn-info">
+                Save Changes
+              </button>
+              <button type="button" onclick="{onClose()}" class="btn btn-infocancel">
+                Close
+              </button>
+              <h5 id="error-msg"></h5>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+
+      <!--/.ROW-->
+
+    </div>
+  </div>
+  <!-- CONTENT-WRAPPER SECTION END-->
+  <section class="footer-section">
+    <div class="container">
+      <div class="row">
+        {{!-- <div class="col-md-12">
+          &copy; 2014 Yourdomain.com |<a href="http://www.binarytheme.com/" target="_blank">
+            Designed by : binarytheme.com</a>
+        </div> --}}
+      </div>
+    </div>
+  </section>
+  <script>
+    const onClose = () => {
+      window.location.href = "/danhmuc"
+    }
+    const fetchAPI = async (url, option) => {
+      const res = await fetch(url, option);
+      return res.json().then();
+    }
+
+    const validationForm = () => {
+      const name = document.getElementById("name").value;
+
+      if (!name || name.trim().lenght === 0
+      ) {
+        document.getElementById("btnSave").disabled = true;
+      } else {
+        document.getElementById("btnSave").disabled = false;
+      }
+    }
+    const onSave = async () => {
+      const name = document.getElementById("name").value;
+      const id = document.getElementById("id").value;
+
+      const body = {
+        name
+      }
+      const url = `http://localhost:3000/danhmuc/${id}/edit`;
+
+      const option = {
+        method: 'post',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      }
+      try {
+        const result = await fetchAPI(url, option);
+        if (result.status) {
+          window.location.href = "/danhmuc";
+        } else {
+
+          if (result.errors) {
+            const msg = result.errors[0].msg;
+            document.getElementById("error-msg").innerText = msg;
+          }
+          else {
+            console.log("is not error ");
+          }
+        }
+
+      } catch (e) {
+        console.log("Delete Error: ", e);
+      }
+    }
+  </script>

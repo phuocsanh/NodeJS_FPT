@@ -1,0 +1,146 @@
+<div class="navbar navbar-inverse set-radius-zero">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/sanpham">
+        <img src="/img/logoPS.jpg" />
+      </a>
+    </div>
+
+    {{!-- <div class="right-div">
+      <a href="#" class="btn btn-danger pull-right">LOG ME OUT</a>
+    </div> --}}
+  </div>
+</div>
+<!-- LOGO HEADER END-->
+<section class="menu-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="navbar-collapse collapse">
+          <ul id="menu-top" class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/dangnhap" class="menu-top-active">LOGIN</a>
+            </li>
+            {{!-- <li>
+              <a href="/dangki" class="menu-top-active">REGISTER</a>
+            </li> --}}
+
+
+            {{!-- <li><a href="/sanpham">Sản Phẩm</a></li> --}}
+            {{!-- <li><a href="/sanpham/4/edit">Sửa Sản Phẩm</a></li> --}}
+            {{!-- <li><a href="/danhmuc">Danh Mục</a></li> --}}
+            {{!-- <li><a href="/danhmuc/4/edit">Sửa Danh Mục</a></li> --}}
+            {{!-- <li><a href="/thongke">Thống Kê</a></li> --}}
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- MENU SECTION END-->
+<div class="content-wrapper">
+  <div class="container">
+    <div class="row pad-botm">
+      <div class="col-md-12">
+        <h4 class="header-line">ADMIN DASHBOARD</h4>
+      </div>
+    </div>
+
+
+    <div class="col-md-6">
+      <div class="panel panel-info">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+          {{!-- action="/dangnhap" method="post" --}}
+          <form role="form">
+            <div class="form-group">
+              <label>Enter User Name</label>
+              <input onchange="validationForm()" id="username" required class="form-control" type="text"
+                name="username" />
+            </div>
+            <div class="form-group">
+              <label>Enter Password</label>
+              <input onchange="validationForm()" id="password" required class="form-control" type="password"
+                name="password" />
+            </div>
+
+            <button id="button" disabled type="button" onclick="onLogin()" class="btn btn-success">
+              LOGIN
+            </button>
+
+          </form>
+          <h6 id="error-msg"></h6>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- CONTENT-WRAPPER SECTION END-->
+<section class="footer-section">
+  <div class="container">
+    <div class="row">
+      {{!-- <div class="col-md-12">
+        &copy; 2014 Yourdomain.com |<a href="http://www.binarytheme.com/" target="_blank">
+          Designed by : binarytheme.com</a>
+      </div> --}}
+    </div>
+  </div>
+</section>
+
+<script>
+
+  const validationForm = () => {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    if (!username || !password || username.trim().lenght === 0 || password.trim().lenght === 0) {
+      document.getElementById("button").disabled = true;
+    } else {
+      document.getElementById("button").disabled = false;
+    }
+  }
+  const fetchAPI = async (url, option) => {
+    const res = await fetch(url, option);
+    return res.json().then()
+  }
+  const onLogin = async () => {
+    const url = "http://localhost:3000/dangnhap";
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const body = {
+      username, password
+    }
+    const option = {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    }
+    try {
+      const result = await fetchAPI(url, option);
+      if (result.status) {
+        window.location.href = "/sanpham"
+      } else {
+
+        if (result.errors) {
+          const msg = result.errors[0].msg;
+          const errorname = result.errors;
+          console.log("error name or pass", errorname);
+          document.getElementById("error-msg").innerText = msg ? msg : errorname;
+        }
+        else {
+          console.log("is not error ");
+        }
+      }
+
+    } catch (e) {
+      console.log("LogIn Error: ", e);
+    }
+  }
+</script>

@@ -1,0 +1,95 @@
+<div class="navbar navbar-inverse set-radius-zero">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/sanpham">
+        <img src="/img/logoPS.jpg" />
+      </a>
+    </div>
+
+    {{!-- <div class="right-div">
+      <a href="#" class="btn btn-danger pull-right">LOG ME OUT</a>
+    </div> --}}
+  </div>
+</div>
+<!-- LOGO HEADER END-->
+<section class="menu-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="navbar-collapse collapse">
+          <ul id="menu-top" class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/sanpham" class="menu-top-active">LOGIN</a>
+            </li>
+
+
+            {{!-- <li><a href="/sanpham">Sản Phẩm</a></li> --}}
+            {{!-- <li><a href="/sanpham/4/edit">Sửa Sản Phẩm</a></li> --}}
+            {{!-- <li><a href="/danhmuc">Danh Mục</a></li> --}}
+            {{!-- <li><a href="/danhmuc/4/edit">Sửa Danh Mục</a></li> --}}
+            {{!-- <li><a href="/thongke">Thống Kê</a></li> --}}
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- MENU SECTION END-->
+<div class="content-wrapper">
+  <div class="container">
+    <div class="row pad-botm">
+      <div class="col-md-12">
+        <h4 class="header-line">ADMIN DASHBOARD</h4>
+      </div>
+    </div>
+
+
+    <div class="col-md-6">
+      <div class="panel panel-info">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+          <form role="form" action="/dangki" method="post">
+            <div class="form-group">
+              <label>Enter User Name</label>
+              <input class="form-control" type="text" name="username" />
+            </div>
+            <div class="form-group">
+              <label>Enter Password</label>
+              <input class="form-control" type="password" name="password" />
+            </div>
+            <div class="form-group">
+              <label>Enter Confirm Password</label>
+              <input class="form-control" type="password" name="confirm_password" />
+            </div>
+
+            <button type="submit" class="btn btn-success">
+              REGISTER
+            </button>
+
+
+
+          </form>
+          <div>{{err}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- CONTENT-WRAPPER SECTION END-->
+<section class="footer-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        &copy; 2014 Yourdomain.com |<a href="http://www.binarytheme.com/" target="_blank">
+          Designed by : binarytheme.com</a>
+      </div>
+    </div>
+  </div>
+</section>
