@@ -57,7 +57,7 @@ router.post("/dangnhap", async function (req, res, next) {
           id: checkLogin.id,
           username: checkLogin.username,
         },
-        process.env.JWT_SECRET_KEY
+        "123"
       );
 
       // res.redirect("/sanpham");
