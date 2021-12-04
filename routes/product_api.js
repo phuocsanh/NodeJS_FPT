@@ -8,17 +8,23 @@ const { validationResult, check } = require("express-validator");
 
 // lấy danh sách sản phẩm
 router.get("/", [authen.checkToken], async function (req, res, next) {
-  const products = await productController.get();
-  //   const categories = await categoriesController.getAllCategories();
-
-  res.json(products);
+  try {
+    const products = await productController.get();
+    res.json(products);
+  } catch (error) {
+    console.log("Get product error", error);
+  }
 });
 // lấy thông chi tiết sản phẩm
 router.get("/:id", async function (req, res, next) {
-  const { id } = req.params;
-  const product = await productController.getOneProduct(id);
+  try {
+    const { id } = req.params;
+    const product = await productController.getOneProduct(id);
 
-  res.json(product);
+    res.json(product);
+  } catch (error) {
+    console.log("Get one product error", error);
+  }
 });
 
 module.exports = router;

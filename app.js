@@ -35,10 +35,13 @@ app.use(
   })
 );
 mongoose
-  .connect(process.env.MONGODB_KEY, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://phuocsanhtps:0987383606tps@cluster0.fcc4y.mongodb.net/db16201?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log("DB Conected"))
   .catch((err) => console.log("DB error", err));
 

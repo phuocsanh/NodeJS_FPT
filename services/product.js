@@ -43,7 +43,7 @@ exports.update = async(product) => {
         doc.image = product.image ? product.image : doc.image;
         doc.description = product.description;
         doc.available = product.available;
-        doc.publishe = product.published;
+        doc.published = product.published;
         await doc.save();
     }
 };
