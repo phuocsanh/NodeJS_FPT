@@ -6,9 +6,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/sanpham">
+      {{!-- <a class="navbar-brand" href="/sanpham">
         <img src="/img/logoPS.jpg" />
-      </a>
+      </a> --}}
     </div>
 
     <div class="right-div">
@@ -268,7 +268,7 @@
     return res.json().then();
   }
   const onDelete = async () => {
-    const url = `http://localhost:3000/sanpham/${delete_id}`;
+    const url = `https://demo-nodejs-fpt.herokuapp.com/${delete_id}`;
     const option = {
       method: 'delete',
       headers: { "Content-Type": "application/json" }
@@ -352,7 +352,7 @@
     const body = {
       name, price, image, published, quantity, description, available, category
     }
-    const url = "http://localhost:3000/sanpham";
+    const url = "https://demo-nodejs-fpt.herokuapp.com/sanpham";
 
     const option = {
       method: 'post',
